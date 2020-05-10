@@ -1,7 +1,5 @@
 package com.myapps.courseapp.exception;
 
-import com.myapps.courseapp.model.Course;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,9 +41,15 @@ public class CustomizeExceptionResponse extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(CourseNotFoundException.class)
-    public final ResponseEntity<Object> handleCourseNotFoundException(CourseNotFoundException ex, WebRequest req){
+    public final ResponseEntity<Object> handleCourseNotFoundException(CourseNotFoundException ex, WebRequest req) {
         ExceptionResponse resp = new ExceptionResponse(new Date(), ex.getMessage(), req.getDescription(false));
-        return new ResponseEntity<Object>(resp, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(resp, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(InstructorNotFoundException.class)
+    public final ResponseEntity<Object> handleInstructorNotFoundException(InstructorNotFoundException ex, WebRequest req) {
+        ExceptionResponse resp = new ExceptionResponse(new Date(), ex.getMessage(), req.getDescription(false));
+        return new ResponseEntity<>(resp, HttpStatus.NOT_FOUND);
     }
 
 }
